@@ -1,0 +1,26 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(50,50)">
+    <!-- Lotus/flower petals -->
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(0)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(45)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(90)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(135)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(180)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(225)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(270)"/>
+    <path d="M0,-20 C-5,-15 -5,-5 0,0 C5,-5 5,-15 0,-20 Z" fill="#2d3748" transform="rotate(315)"/>
+    
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="4" fill="#2d3748"/>
+    
+    <!-- Stems/connections -->
+    <line x1="0" y1="5" x2="-8" y2="20" stroke="#2d3748" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="5" x2="0" y2="20" stroke="#2d3748" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="5" x2="8" y2="20" stroke="#2d3748" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Small circles at stem ends -->
+    <circle cx="-8" cy="20" r="2" fill="#2d3748"/>
+    <circle cx="0" cy="20" r="2" fill="#2d3748"/>
+    <circle cx="8" cy="20" r="2" fill="#2d3748"/>
+  </g>
+</svg>
