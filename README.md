@@ -1,6 +1,8 @@
 PromptAI 🤖
 An intelligent AI prompt engineering assistant built with React and Tailwind CSS.
 
+🌐 [Live Demo](https://prompt-ai-9i8n.vercel.app/)
+
 PromptAI is a sleek, modern, and fully responsive web application designed to help developers and creators craft better prompts for AI models. Instead of just sending a raw idea to an AI, PromptAI analyzes your input for action-oriented keywords and enhances it to generate more precise and context-rich prompts, leading to superior results from AI text and image generators.
 
 <img width="1919" height="868" alt="image" src="https://github.com/user-attachments/assets/d7d90d4d-ae09-42b9-aafe-d724cd809b80" />
@@ -69,10 +71,13 @@ This project utilizes the public Pollinations AI text generation endpoint. It's 
 
 🧑‍💻 Connect with Me
 Feel free to connect with me on my social platforms:
+1
+GitHub:               href="https://github.com/Sunil10das-ytmx"
 
-GitHub: @Sunil10das-ytmx
 
-LinkedIn: Sunil Das
+LinkedIn:               href="https://www.linkedin.com/in/sunil-das-494114299"
 
-Instagram: @_sunildas10
+
+Instagram:               href="https://www.instagram.com/_sunildas10?igsh=Zjh1OGIydm1heGMx"
+
 
