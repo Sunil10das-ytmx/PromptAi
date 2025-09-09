@@ -2,7 +2,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { useTheme } from '../Context/ThemeContext';
 
-import Card from '../Components/card';
+import Card from './Card';
 import GpImage from '../assets/PromptImage.png';
 import TjImage from '../assets/Tj.png';
 import RLImage from '../assets/RL.png';
