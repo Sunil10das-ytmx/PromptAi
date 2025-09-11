@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from 'react-toastify';
 import SendIcon from "../assets/send_icon.png";
 import { searchPollinationsText } from "../Config/PollinationsApi";
-import { detectTriggerKeywords, enhancePrompt } from "../utils/keywordDetection";
 
 const ChatWindow = ({ chatId, onNewMessage, messages = [] }) => {
   const [query, setQuery] = useState("");
@@ -25,24 +24,7 @@ const ChatWindow = ({ chatId, onNewMessage, messages = [] }) => {
   const handleSend = async () => {
     if (!query.trim() || loading) return;
 
-    // Detect keywords in the user's query
-    const detection = detectTriggerKeywords(query);
-    
-    // Only proceed if trigger keywords are detected
-    if (!detection.triggered) {
-      toast.error("Please use action words like 'Generate', 'Create', 'Prompt' or 'Make' in your request!", {
-        position: "top-center",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-      });
-      return;
-    }
-
-    const userMessage = {
+const userMessage = {
       id: Date.now(),
       type: 'user',
       content: query,
@@ -57,11 +39,8 @@ const ChatWindow = ({ chatId, onNewMessage, messages = [] }) => {
     setLoading(true);
 
     try {
-      // Enhance the prompt based on detected keywords
-      const enhancedPrompt = enhancePrompt(currentQuery);
-      
-      // Get the text response from Pollinations using enhanced prompt
-      const text = await searchPollinationsText(enhancedPrompt);
+      // Get the text response from Pollinations
+      const text = await searchPollinationsText(currentQuery);
       
       const aiMessage = {
         id: Date.now() + 1,

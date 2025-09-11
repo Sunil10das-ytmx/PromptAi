@@ -7,7 +7,6 @@ import { AiOutlineSend } from 'react-icons/ai';
 import SendIcon from "../assets/send_icon.png";
 import PromptAiLogo from "../assets/PromptAi.png";
 import { searchPollinationsText } from "../Config/PollinationsApi";
-import { detectTriggerKeywords, enhancePrompt } from "../utils/keywordDetection";
 import { useTheme } from "../Context/ThemeContext";
 
 // Function to parse text and make content within asterisks bold
@@ -46,38 +45,12 @@ const Home = ({ onNewChat, onNewMessage, currentChatId }) => {
     }
   }, [currentChatId]);
 
-  // Real-time keyword detection as user types
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    
-    if (value.trim()) {
-      const detection = detectTriggerKeywords(value);
-      setLiveDetection(detection);
-    } else {
-      setLiveDetection(null);
-    }
+    setQuery(e.target.value);
   };
 
   const handleSend = async () => {
     if (!query.trim()) return;
-
-    // Detect keywords in the user's query
-    const detection = detectTriggerKeywords(query);
-    
-    // Only proceed if trigger keywords are detected
-    if (!detection.triggered) {
-      toast.error("Please use action words like 'Generate', 'Create', 'Prompt' or 'Write' in your request!", {
-        position: "top-center",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-      });
-      return;
-    }
 
     const currentQuery = query;
     
@@ -105,11 +78,8 @@ const Home = ({ onNewChat, onNewMessage, currentChatId }) => {
     }
 
     try {
-      // Enhance the prompt based on detected keywords
-      const enhancedPrompt = enhancePrompt(currentQuery);
-      
-      // Get the text response from Pollinations using enhanced prompt
-      const text = await searchPollinationsText(enhancedPrompt);
+      // Get the text response from Pollinations
+      const text = await searchPollinationsText(currentQuery);
       
       // Add AI response
       const aiMessage = {
