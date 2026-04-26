@@ -1,7 +1,7 @@
 PromptAI 🤖
 An intelligent AI prompt engineering assistant built with React and Tailwind CSS.
 
-🌐 [Live Demo](https://prompt-ai-9i8n.vercel.app/)
+🌐 [Live Demo](https://prompt-ai-6znj.vercel.app/)
 
 PromptAI is a sleek, modern, and fully responsive web application designed to help developers and creators craft better prompts for AI models. Instead of just sending a raw idea to an AI, PromptAI analyzes your input for action-oriented keywords and enhances it to generate more precise and context-rich prompts, leading to superior results from AI text and image generators.
 
