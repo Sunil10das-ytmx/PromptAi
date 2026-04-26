@@ -30,11 +30,17 @@ const Home = ({ onNewChat, onNewMessage, currentChatId }) => {
   const [chatStarted, setChatStarted] = useState(false);
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
+  const skipNextChatResetRef = useRef(false);
   const { colors } = useTheme();
 
   // Reset chat state when currentChatId changes (new chat created)
   React.useEffect(() => {
     if (currentChatId) {
+      if (skipNextChatResetRef.current) {
+        skipNextChatResetRef.current = false;
+        return;
+      }
+
       // Reset to initial state for new chat but keep chatStarted if messages exist
       setMessages([]);
       setQuery("");
@@ -70,11 +76,13 @@ const Home = ({ onNewChat, onNewMessage, currentChatId }) => {
     setLoading(true);
     
     // If we have a currentChatId, also add to parent state
+    let activeChatId = currentChatId;
     if (currentChatId && onNewMessage) {
       onNewMessage(currentChatId, userMessage);
     } else if (onNewChat) {
-      // No current chat, create new one
-      onNewChat();
+      // No current chat, create one with this first user message
+      skipNextChatResetRef.current = true;
+      activeChatId = onNewChat(userMessage);
     }
 
     try {
@@ -92,9 +100,9 @@ const Home = ({ onNewChat, onNewMessage, currentChatId }) => {
       // Add to local state for immediate display
       setMessages(prev => [...prev, aiMessage]);
       
-      // Add to parent state if we have currentChatId
-      if (currentChatId && onNewMessage) {
-        onNewMessage(currentChatId, aiMessage);
+      // Add to parent state if we have an active chat id
+      if (activeChatId && onNewMessage) {
+        onNewMessage(activeChatId, aiMessage);
       }
       
     } catch (err) {

@@ -28,12 +28,18 @@ const AppContent = () => {
   };
 
   // Create new chat
-  const handleNewChat = () => {
+  const handleNewChat = (initialMessage = null) => {
     const newChatId = generateChatId();
+    const initialMessages = initialMessage ? [initialMessage] : [];
+    const chatTitle =
+      initialMessage?.type === 'user'
+        ? initialMessage.content.slice(0, 40) + (initialMessage.content.length > 40 ? '...' : '')
+        : 'New Chat';
+
     const newChat = {
       id: newChatId,
-      title: `New Chat`,
-      messages: [],
+      title: chatTitle,
+      messages: initialMessages,
       createdAt: new Date()
     };
     
@@ -41,6 +47,7 @@ const AppContent = () => {
     setChatHistory(prev => [...prev, newChat]);
     setCurrentChatId(newChatId);
     // Keep current view as 'home' to allow the Home component to handle the chat interface
+    return newChatId;
   };
 
   // Handle navigation
