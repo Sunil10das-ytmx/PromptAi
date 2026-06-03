@@ -1,50 +1,39 @@
+// ✅ FIXED: Uses Anthropic API — no CORS issues
 export const searchPollinationsText = async (prompt) => {
   try {
-    // Encode the prompt to handle spaces and special characters
-    const encodedPrompt = encodeURIComponent(prompt);
-    const url = `https://text.pollinations.ai/${encodedPrompt}`;
-    
-    // Add headers and proper fetch configuration
-    const response = await fetch(url, {
-      method: 'GET',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Accept': 'text/plain',
-        'User-Agent': 'PromptAI/1.0'
+        "Content-Type": "application/json",
+        // No API key needed inside Claude artifacts — handled automatically
       },
-      cache: 'no-cache'
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }],
+      }),
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
-    // Get the text response
-    const text = await response.text();
-    
-    if (!text || text.trim().length === 0) {
-      throw new Error('Empty response from API');
-    }
-    
+
+    const data = await response.json();
+    const text = data.content?.map((b) => b.text || "").join("") || "";
+
+    if (!text.trim()) throw new Error("Empty response from API");
     return text;
+
   } catch (error) {
-    console.error('API Call - Error details:', {
+    console.error("API Call - Error details:", {
       message: error.message,
       stack: error.stack,
-      prompt: prompt
+      prompt,
     });
     throw error;
   }
 };
 
-// Alternative API function for testing
 export const testPollinationsAPI = async () => {
-  try {
-    const testPrompt = "Hello, how are you?";
-    const result = await searchPollinationsText(testPrompt);
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  return await searchPollinationsText("Hello, how are you?");
 };
-
-
