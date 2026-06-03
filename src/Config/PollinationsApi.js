@@ -1,39 +1,50 @@
-// ✅ FIXED: Uses Anthropic API — no CORS issues
 export const searchPollinationsText = async (prompt) => {
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
+    // Encode the prompt to handle spaces and special characters
+    const encodedPrompt = encodeURIComponent(prompt);
+    const url = `https://text.pollinations.ai/${encodedPrompt}`;
+    
+    // Add proper fetch configuration for browser usage
+    const response = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
-        // No API key needed inside Claude artifacts — handled automatically
+        'Accept': 'text/plain'
       },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }],
-      }),
+      cache: 'no-cache'
     });
-
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
-    const data = await response.json();
-    const text = data.content?.map((b) => b.text || "").join("") || "";
-
-    if (!text.trim()) throw new Error("Empty response from API");
+    
+    // Get the text response
+    const text = await response.text();
+    
+    if (!text || text.trim().length === 0) {
+      throw new Error('Empty response from API');
+    }
+    
     return text;
-
   } catch (error) {
-    console.error("API Call - Error details:", {
+    console.error('API Call - Error details:', {
       message: error.message,
       stack: error.stack,
-      prompt,
+      prompt: prompt
     });
     throw error;
   }
 };
 
+// Alternative API function for testing
 export const testPollinationsAPI = async () => {
-  return await searchPollinationsText("Hello, how are you?");
+  try {
+    const testPrompt = "Hello, how are you?";
+    const result = await searchPollinationsText(testPrompt);
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
+
+
