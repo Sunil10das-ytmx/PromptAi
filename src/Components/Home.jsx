@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaRobot } from 'react-icons/fa';
 import { AiOutlineSend } from 'react-icons/ai';
@@ -130,7 +130,6 @@ const Home = ({ onNewChat, onNewMessage, currentChatId }) => {
 
   return (
     <div className="h-screen w-full flex flex-col" style={{ backgroundColor: colors.primary }}>
-      <ToastContainer position="top-right" autoClose={3000} />
       {/* Header */}
       <header className="flex justify-between items-center p-4 md:px-6" style={{ backgroundColor: colors.primary }}>
         <div className="flex items-center space-x-3">
