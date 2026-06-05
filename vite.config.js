@@ -8,4 +8,19 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  server: {
+    proxy: {
+      '/api-pollinations': {
+        target: 'https://text.pollinations.ai',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-pollinations/, ''),
+        configure: (proxy, _options) => {
+          proxy.on('proxyReq', (proxyReq, _req, _res) => {
+            proxyReq.removeHeader('origin');
+            proxyReq.removeHeader('referer');
+          });
+        }
+      }
+    }
+  }
 })

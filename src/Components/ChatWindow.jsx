@@ -53,9 +53,15 @@ const userMessage = {
       
     } catch (err) {
       console.error("API error:", err);
-      toast.error("Failed to get response. Please try again.", {
+      let errorMsg = "Failed to get response. Please try again.";
+      if (err.message?.includes("429")) {
+        errorMsg = "API Rate Limit reached. Please wait a moment before trying again, or add a VITE_POLLINATIONS_API_KEY to your env.";
+      } else if (err.message?.includes("401")) {
+        errorMsg = "API Authentication failed. Please verify your VITE_POLLINATIONS_API_KEY.";
+      }
+      toast.error(errorMsg, {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
